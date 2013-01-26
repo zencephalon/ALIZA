@@ -1,13 +1,14 @@
 class Aliza
    def initialize
        @start = true
-       @name = "Matthew"
-       @input = ""
+       @name, @input = nil, nil
    end
 
    def speak
        if @start
-           say "Hello, world. I am Aliza."
+           say "Hello, I am Aliza. What is your name?"
+           @name = listen
+           say "I am delighted to meet you #{@name}! How can I help you today?"
            @start = false
        else
            if @input.match /.*aura.*/
