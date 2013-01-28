@@ -30,6 +30,35 @@ class Aliza
        @input = gets.chomp
    end
 
+   def ericksonian
+       patterns = [
+           "You may be aware of <FEELING> as you <COMMAND>.",
+           "You may notice <FEELING> as you <COMMAND>.",
+           #"You might <UNDEFINED>.", You might find yourself repeating these patterns as you sleep and dream.
+           "You might become aware of <FEELING> when you <COMMAND>.",
+           "Don't <COMMAND> too quickly.",
+           "How does it feel when you <COMMAND>?",
+           "How quickly can you <COMMAND>?",
+           #"Try to resist <UNDEFINED>.", Try to resist the urge to use these patterns with every person you hypnotise.
+           "There is no need for you to <COMMAND>.",
+           #"The fact that <FACT>, means <UNDEFINED", The fact that you've learned to write means you can master any complex skill.
+           "People can, you know, <COMMAND>.",
+           "People can, <NAME>, <COMMAND>.",
+           "People can <COMMAND> because <REASON>.",
+           "People are able to <COMMAND>.",
+           #"One of the things <UNDEFINED> is <UNDEFINED>.", One of the things you'll laugh about once you learn these patterns is just how much fun you can have using them.
+           "One can, <NAME>, <COMMAND>.",
+           "Maybe you'll <COMMAND>.",
+           "Maybe you haven't <COMMAND> yet.",
+           #"Isn't it nice to know <UNDEFINED>", Isn't it nice to know that you can integrate these learnings at the speed that's best for you?
+           #"In the days and weeks ahead <UNDEFINED>.", In the days and weeks ahead, the real value of having practice these patterns dilligently will begin to become apparent.
+           "I don't know whether <COMMAND>.",
+           "I'm wondering if <STATEMENT>.",
+           #"I'm curious to know <UNDEFINED>.", I'm curious to know just how many ways you'll find to apply these language patterns
+           #"I wouldn't tell you to <COMMAND> because <UNDEFINED>.", I wouldn't tell you to practice these patterns repeatedly because you can choose for yourself how to best integrate them.
+           "I wonder if you've already started to notice <FEELING>."]
+   end
+
    def rainbow_aura
        [   "Pull Gaia's energy into your root.",
            "Feel your Muladhara spin. Its four petals glow neon pink.",
