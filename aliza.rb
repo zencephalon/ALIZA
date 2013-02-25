@@ -6,15 +6,30 @@ class Aliza
         @name, @input = nil, nil
     end
 
+    def new_session
+        @start = true
+    end
+
     def speak
-        if @start
+        if @start and @name.nil?
             say "Hello, I am Aliza. What is your name?"
             @name = listen
             say "I am delighted to meet you #{@name}! How can I help you today?"
             @start = false
+        elsif @start and @name
+            say "Welcome back #{@name}! Great to see you again. How can I help you?"
+            @start = false
         else
             if @input.match /.*aura.*/
                 rainbow_aura
+            elsif @input.match /.*quit.*/
+                say "Goodbye! I hope to see you again soon."
+                save
+                exit
+            elsif @input.match /.*hypno.*/
+                say "What can I assist you with? Currently I offer confidence therapy."
+                @topic = listen
+                ericksonian(@topic.to_sym)
             else
                 say "I love you #{@name}."
                 say "You last said '#{@input}'."
@@ -32,7 +47,7 @@ class Aliza
         @input = gets.chomp
     end
 
-    def ericksonian
+    def ericksonian(topic)
         patterns = [
             "You may be aware of <FEELING> as you <COMMAND>.",
             "You may notice <FEELING> as you <COMMAND>.",
@@ -59,6 +74,23 @@ class Aliza
             #"I'm curious to know <UNDEFINED>.", I'm curious to know just how many ways you'll find to apply these language patterns
             #"I wouldn't tell you to <COMMAND> because <UNDEFINED>.", I wouldn't tell you to practice these patterns repeatedly because you can choose for yourself how to best integrate them.
             "I wonder if you've already started to notice <FEELING>."]
+
+        topics = {:confidence => {
+            :feeling => ["a sense of confidence", "a confidence within"],
+            :command => ["breathe deeply", "relax your neck and shoulders"], 
+            :statement => ["you feel confident"]
+        }}
+
+        pattern = patterns.sample
+
+        pattern.gsub!(/<NAME>/, @name)
+
+        [:feeling, :command, :statement].each do |match_str|
+            re = /<#{match_str.to_s.upcase}>/
+            pattern.gsub!(re, topics[topic][match_str].sample)
+        end
+
+        say pattern
     end
 
     def rainbow_aura
@@ -114,9 +146,12 @@ class User
 
 end
 
-#a = Aliza.new
-#
-#while true
-#    a.speak
-#    a.listen
-#end
+def start
+    a = Aliza.load
+    a.new_session
+
+    while true
+        a.speak
+        a.listen
+    end
+end
