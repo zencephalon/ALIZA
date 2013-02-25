@@ -1,8 +1,8 @@
-require 'yaml'
 require 'rubygems'
 require 'bundler/setup'
 
 require 'engtagger'
+require 'yaml'
 
 class Aliza
     
@@ -11,6 +11,7 @@ class Aliza
     def initialize
         @start = true
         @name, @input = nil, nil
+        @tagger = EngTagger.new
     end
 
     def new_session
@@ -38,8 +39,8 @@ class Aliza
                 end
             end
 
-            say "I love you #{@name}."
-            say "You last said '#{@input}'."
+            #say "I love you #{@name}."
+            say "You last said '#{@tagger.get_readable(@input)}'."
         end
     end
 
