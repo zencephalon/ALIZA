@@ -20,20 +20,19 @@ class Aliza
             say "Welcome back #{@name}! Great to see you again. How can I help you?"
             @start = false
         else
-            if @input.match /.*aura.*/
-                rainbow_aura
-            elsif @input.match /.*quit.*/
-                say "Goodbye! I hope to see you again soon."
-                save
-                exit
-            elsif @input.match /.*hypno.*/
-                say "What can I assist you with? Currently I offer confidence therapy."
-                @topic = listen
-                ericksonian(@topic.to_sym)
-            else
-                say "I love you #{@name}."
-                say "You last said '#{@input}'."
+            [
+                [/.*aura.*/, :rainbow_aura],
+                [/.*quit.*/, :quit],
+                [/.*hypno.*/, :hypnosis]
+            ].each do |a|
+                if @input.match a[0]
+                    self.send(a[1])
+                    return
+                end
             end
+
+            say "I love you #{@name}."
+            say "You last said '#{@input}'."
         end
     end
 
@@ -45,6 +44,18 @@ class Aliza
     def listen
         print "-> "
         @input = gets.chomp
+    end
+
+    def quit
+        say "Goodbye! I hope to see you again soon."
+        save
+        exit
+    end
+
+    def hypnosis
+        say "What can I assist you with? Currently I offer confidence therapy."
+        @topic = listen
+        ericksonian(@topic.to_sym)
     end
 
     def ericksonian(topic)
@@ -136,7 +147,7 @@ class Aliza
     end
 
     def save
-        File.open('aliza.mem', 'w') do |f|
+        File.open('memory.stor', 'w') do |f|
             f.puts(self.to_yaml)
         end
     end
