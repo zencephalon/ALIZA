@@ -1,6 +1,13 @@
 require 'yaml'
+require 'rubygems'
+require 'bundler/setup'
+
+require 'engtagger'
 
 class Aliza
+    
+    MEMORY = "memory.yaml"
+
     def initialize
         @start = true
         @name, @input = nil, nil
@@ -137,8 +144,8 @@ class Aliza
     end
 
     def self.load
-        if FileTest.exists?('aliza.mem')
-            File.open('aliza.mem', 'r') do |f|
+        if FileTest.exists?(MEMORY)
+            File.open(MEMORY, 'r') do |f|
                 return YAML.load(f)
             end
         else
@@ -147,7 +154,7 @@ class Aliza
     end
 
     def save
-        File.open('memory.stor', 'w') do |f|
+        File.open(MEMORY, 'w') do |f|
             f.puts(self.to_yaml)
         end
     end
