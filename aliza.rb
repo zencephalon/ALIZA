@@ -5,6 +5,7 @@ require 'engtagger'
 require 'yaml'
 
 class Aliza
+    attr_accessor :tagger
     
     MEMORY = "memory.yaml"
 
@@ -40,7 +41,14 @@ class Aliza
             end
 
             #say "I love you #{@name}."
-            say "You last said '#{@tagger.get_readable(@input)}'."
+            tagged = @tagger.add_tags(@input)
+            noun_phrases = @tagger.get_max_noun_phrases(tagged)
+
+            if !noun_phrases.empty?
+                say "Tell me about #{noun_phrases.keys[0]}."
+            else
+                say "You last said '#{@tagger.add_tags(@input)}'."
+            end
         end
     end
 
@@ -168,6 +176,7 @@ end
 def start
     a = Aliza.load
     a.new_session
+    a.tagger = EngTagger.new
 
     while true
         a.speak

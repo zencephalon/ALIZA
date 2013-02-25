@@ -1,2 +1,2 @@
 source "https://rubygems.org"
-gem "engtagger"
+gem "engtagger", :git => "git://github.com/zencephalon/engtagger.git"

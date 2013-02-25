@@ -1,10 +1,15 @@
+GIT
+  remote: git://github.com/zencephalon/engtagger.git
+  revision: 5b69747248a7883a65d28c2404359f963c5511be
+  specs:
+    engtagger (0.1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
-    engtagger (0.1.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  engtagger
+  engtagger!
