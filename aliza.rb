@@ -33,7 +33,9 @@ class Aliza
             {
                 /.*aura.*/ => :rainbow_aura,
                 /.*quit.*/ => :quit,
-                /.*hypno.*/ => :hypnosis
+                /.*hypno.*/ => :hypnosis,
+                /.*(is|are).*/ => :learn,
+                /Describe (\w+)\.*/ => :recall
             }.each do |pattern, function|
                 if @input.match pattern
                     self.send(function)
@@ -50,6 +52,27 @@ class Aliza
             else
                 say "You last said '#{@tagger.add_tags(@input)}'."
             end
+        end
+    end
+
+    def learn
+        match = @input.match(/(.*)(are|is)(.*)/)
+        subject = match[1].rstrip
+        copula = match[2]
+        definition = match[3].lstrip
+
+        @knowledge[subject] = [copula, definition]
+    end
+
+    def recall
+        match = @input.match(/Describe (\w+)\.*/)
+        subject = match[1]
+
+        known = @knowledge[subject] 
+        unless known.nil?
+            say "#{subject} #{@knowledge[subject][0]} #{@knowledge[subject][1]}"
+        else
+            say "Sorry, I don't know anything about #{subject}."
         end
     end
 
