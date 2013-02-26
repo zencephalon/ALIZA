@@ -13,6 +13,7 @@ class Aliza
         @start = true
         @name, @input = nil, nil
         @tagger = EngTagger.new
+        @knowledge = {}
     end
 
     def new_session
@@ -45,11 +46,27 @@ class Aliza
             noun_phrases = @tagger.get_max_noun_phrases(tagged)
 
             if !noun_phrases.empty?
-                say "Tell me about #{noun_phrases.keys[0]}."
+                say "Tell me about #{reflect_pronouns(noun_phrases.keys[0])}."
             else
                 say "You last said '#{@tagger.add_tags(@input)}'."
             end
         end
+    end
+
+    def reflect_pronouns(s)
+        k = s.clone
+
+        swaps = {
+            "your" => "my",
+            "Your" => "My",
+            "my" => "your",
+            "My" => "Your",
+        }
+
+        swaps.each do |search, replace|
+            k = k.gsub(/#{search} /, replace + "UGLYHACK ")
+        end
+        k.gsub("UGLYHACK", "")
     end
 
     def say(s)

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/zencephalon/engtagger.git
-  revision: 5b69747248a7883a65d28c2404359f963c5511be
+  revision: 2f2673e40c4908df68423bca835bc413f7b2e2cc
   specs:
     engtagger (0.1.2)
 
