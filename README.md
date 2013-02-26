@@ -8,9 +8,13 @@ Usage
 
 You can simply 
 
-    bundle install
+    git clone https://github.com/zencephalon/ALIZA.git
+    cd ALIZA
+    bundler install
 
 then in IRB
 
     load "aliza.rb"
     start
+
+Note that she has basic persistent memory.
