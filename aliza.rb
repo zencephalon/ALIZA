@@ -30,13 +30,13 @@ class Aliza
             say "Welcome back #{@name}! Great to see you again. How can I help you?"
             @start = false
         else
-            [
-                [/.*aura.*/, :rainbow_aura],
-                [/.*quit.*/, :quit],
-                [/.*hypno.*/, :hypnosis]
-            ].each do |a|
-                if @input.match a[0]
-                    self.send(a[1])
+            {
+                /.*aura.*/ => :rainbow_aura,
+                /.*quit.*/ => :quit,
+                /.*hypno.*/ => :hypnosis
+            }.each do |pattern, function|
+                if @input.match pattern
+                    self.send(function)
                     return
                 end
             end
