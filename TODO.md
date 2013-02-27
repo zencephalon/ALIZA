@@ -1,3 +1,7 @@
+Refactor all of this so that concerns are separate, the code is testable, and
+state is managed sanely through a state machine instead of instance vars.
+
+
 1. Give Aliza a daily task list.
 
 -> I should meditate every day.
