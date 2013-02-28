@@ -1,3 +1,0 @@
-class Comprehender
-
-end
