@@ -37,7 +37,7 @@ class Conversation
     end
 
     def help(msg)
-        return :wait, "#{@user}: I'm still pretty useless right now, sorry!"
+        return :wait, "#{@user}: Try '#{@aliza.name}: encourage'!"
     end
 
     def start(msg)
@@ -50,9 +50,26 @@ class Conversation
             if msg.match('help')
                 return :help, :continue
             end
+            if msg.match('encourage')
+                return :encourage, :continue;
+            end
         else
             return :wait, nil
         end
+    end
+
+    def encourage(msg)
+        phrases = ["Compared to almost everyone, you have an interesting life!",
+            "A journey of a thousand miles begins with one step.",
+            "If it were easy it wouldn't be fun!",
+            "You're in hackNY! You must be smart and tenacious.",
+            "Look at how many friends you have in this channel that love you!",
+            "You're far stronger than you know.",
+            "Smile and breathe deeply. I promise you will feel better.",
+            "Take a break. We need you to avoid burnout so you can save the world.",
+            "You are an inspiration to me."]
+
+        return :wait, "#{@user}: " + phrases.sample(1)[0]
     end
 
     def regreet(msg)
