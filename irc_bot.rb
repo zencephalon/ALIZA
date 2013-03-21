@@ -1,4 +1,7 @@
 require 'cinch'
+load "aliza.rb"
+
+aliza = Aliza.new
 
 bot = Cinch::Bot.new do
   configure do |c|
@@ -7,8 +10,8 @@ bot = Cinch::Bot.new do
     c.channels = ["#hackny"]
   end
 
-  on :message, /.*/ do |m|
-    m.reply "#{m.user.nick}, you said, #{m.message}"
+  on :message, /hello/ do |m|
+    m.reply aliza.hear(m.user.nick, m.message)
   end
 end
 
