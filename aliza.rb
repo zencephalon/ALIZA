@@ -3,6 +3,7 @@ require 'bundler/setup'
 
 require 'engtagger'
 require 'yaml'
+require 'engtagger'
 
 class Aliza
     attr_accessor :name
@@ -10,20 +11,22 @@ class Aliza
     def initialize(name)
         @conversations = {}
         @name = name
+        @tagger = EngTagger.new
     end
 
     def hear(user, msg)
-        @conversations[user] ||= Conversation.new(user, self)
+        @conversations[user] ||= Conversation.new(user, self, @tagger)
 
         return @conversations[user].hear(msg)
     end
 end
 
 class Conversation
-    def initialize(user, aliza)
+    def initialize(user, aliza, tagger)
         @state = :start
         @aliza = aliza
         @user = user
+        @tagger = tagger
     end
 
     def hear(msg)
@@ -50,12 +53,40 @@ class Conversation
             if msg.match('help')
                 return :help, :continue
             end
+
             if msg.match('encourage')
-                return :encourage, :continue;
+                return :encourage, :continue
             end
+
+            return :ask_subject, :continue
         else
             return :wait, nil
         end
+    end
+
+    def ask_subject(msg)
+        msg = msg.gsub("#{@aliza.name}:", '')
+        tagged = @tagger.add_tags(msg)
+        noun_phrases = @tagger.get_max_noun_phrases(tagged)
+
+        return :wait, "Tell me about #{reflect_pronouns(noun_phrases.keys[0])}."
+
+    end
+
+    def reflect_pronouns(s)
+        k = s.clone
+
+        swaps = {
+            "your" => "my",
+            "Your" => "My",
+            "my" => "your",
+            "My" => "Your",
+        }
+
+        swaps.each do |search, replace|
+            k = k.gsub(/#{search} /, replace + "UGLYHACK ")
+        end
+        k.gsub("UGLYHACK", "")
     end
 
     def encourage(msg)
