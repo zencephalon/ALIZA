@@ -15,3 +15,9 @@ A> I will remind you at 7:00 tonight that you have a dinner with Viki.
 3. API integrations
 
 Google Calendar would be nice.
+
+4. Book and Movie and Music suggestions
+    Can add suggestions to the list too
+
+5. Guided meditation prompts
+
