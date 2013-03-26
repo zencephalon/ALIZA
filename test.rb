@@ -1,9 +1,13 @@
 require "test/unit"
 load "aliza.rb"
 
-class TestAliza < Test::Unit::TestCase
-    def test_greeting
-        assert_equal("Hello, I am Aliza. What is your name?", Aliza.new.speak)
+#class TestAliza < Test::Unit::TestCase
+#    def test_greeting
+#        assert_equal("Hello, I am Aliza. What is your name?", Aliza.new.speak)
+#
+#    end
+#end
 
-    end
-end
+name = 'aliza'
+a = Aliza.new(name)
+a.hear('z', 'aliza: hello')
