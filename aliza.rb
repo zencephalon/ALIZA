@@ -110,6 +110,12 @@ class Conversation
             "You're far stronger than you know.",
             "Smile and breathe deeply. I promise you will feel better.",
             "Take a break. We need you to avoid burnout so you can save the world.",
+            "Don't be afraid of what could go wrong. Focus on what could go right",
+            "It's not about the goal. It's about the journey",
+            "What the mind can conceive and believe, it can achieve",
+            "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.",
+            "The mind is everything. What you think you become.",
+            "It is better to travel well than to arrive",
             "You are an inspiration to me."]
 
         # Pick one at random, then delete it so we don't get repeats
